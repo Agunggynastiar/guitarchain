@@ -1,8 +1,9 @@
-node_modules/
-.next/
-artifacts/
-cache/
+node_modules
+.next
 .env
-*.zkey
-*.ptau
-*.wtns
+.env.local
+
+contracts/artifacts
+contracts/cache
+
+circuits/build

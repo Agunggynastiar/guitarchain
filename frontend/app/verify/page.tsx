@@ -1,10 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { createGuitarHash } from "@/lib/hash";
+import {
+createGuitarHash,
+normalizeInput
+} from "@/lib/hash";
+
 import GlassCard from "@/components/glass-card";
 
-export default function VerifyPage() {
+export default function VerifyPage(){
 
 const [form,setForm]=useState({
 serial:"",
@@ -13,6 +17,18 @@ year:""
 });
 
 const [hash,setHash]=useState("");
+
+const [
+preview,
+setPreview
+]=useState<
+null|
+{
+serial:string
+brand:string
+year:string
+}
+>(null);
 
 async function generate(){
 
@@ -30,14 +46,27 @@ return;
 
 }
 
-const result=
-await createGuitarHash(
+const clean=
+normalizeInput(
 form.serial,
 form.brand,
 form.year
 );
 
-setHash(result);
+setPreview(
+clean
+);
+
+const result=
+await createGuitarHash(
+clean.serial,
+clean.brand,
+clean.year
+);
+
+setHash(
+result
+);
 
 }
 
@@ -212,6 +241,38 @@ text-green-400
 Proof Generated
 
 </div>
+
+{
+
+preview&&(
+
+<div
+className="
+rounded-xl
+bg-[#2A201A]
+p-4
+text-sm
+space-y-2
+"
+>
+
+<p>
+Serial: {preview.serial}
+</p>
+
+<p>
+Brand: {preview.brand}
+</p>
+
+<p>
+Year: {preview.year}
+</p>
+
+</div>
+
+)
+
+}
 
 <div
 className="
