@@ -1,24 +1,8 @@
-# dependencies
 node_modules/
-
-# build
 .next/
-dist/
-out/
 artifacts/
 cache/
-
-# env
 .env
-.env.local
-
-# circom
 *.zkey
 *.ptau
 *.wtns
-
-# logs
-npm-debug.log*
-
-# system
-.DS_Store
